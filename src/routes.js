@@ -1,12 +1,13 @@
 /* aqui vamos importar o Router e não o express inteiro, pois é uma forma de
 separar a parte de roteamento do express em outro arquivo */
 import { Router } from 'express';
-import userController from './app/controllers/UserController';
-import User from './app/models/User';
+import UserController from './app/controllers/UserController';
+import SessionController from './app/controllers/SessionController';
 
 const routes = new Router();
 
-routes.post('/users', userController.store);
+routes.post('/users', UserController.store);
+routes.post('/sessions', SessionController.store);
 
 // toda operação que fazemos no banco de dados é assincrona, ou seja, não acontece em tempo real, então precisamos utilizar o async/await
 /*  routes.get('/', async (req, res) => {
