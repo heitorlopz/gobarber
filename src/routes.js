@@ -4,10 +4,17 @@ import { Router } from 'express';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 
+import authMiddleware from './app/middlewares/auth';
+
 const routes = new Router();
 
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
+
+// como o authmiddleware ta sendo definido depois das rotas post, ele so vai valer para as seguintes <-> middleware global
+routes.use(authMiddleware);
+
+routes.put('/users', UserController.update);
 
 // toda operação que fazemos no banco de dados é assincrona, ou seja, não acontece em tempo real, então precisamos utilizar o async/await
 /*  routes.get('/', async (req, res) => {
